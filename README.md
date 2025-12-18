@@ -396,35 +396,23 @@ CREATE TABLE users (
 This task is similar to the above one but an RDS database is created and through that database it is connected.
 
 1. Launch an EC2 instance and allow SSH, HTTP, MYSQL/Aroura Ports in the security group while creating.
-
 2. Create and RDS database and while creating connect to the ec2 instance and select MySQL.
-
 3. Connect to the mobaXterm, update and launch the apache2 sample page.
-
 4. Install the backend php -- apt install php libapache2-mod-php php-mysql -y
-
 5. Now go the directory where index.html page is located (/var/www/html) and replace the sample index.html with the web page containing signup and login options. In that change the ip address.
-
 6. In the same directory also deploy signup.php, login.php, db.php files.
-
 7. In db.php file change 
    (i) host --> Endpoint of RDS
    (ii) dbname --> Database name of rds
    (iii) username --> Name given while creating RDS(admin)
    (iV) Password --> Password given while creating RDS
-
 8. Now go to /home/ubuntu and install mysql server -- apt install mysql-server
-
 9. To go to the SQL prompt -- ```bash mysql -h <dbendpoint> -u username -p``` -- Press Enter and then give the password.
    dbendpoint --> EndPoint of RDS
    username --> Give the username(admin)
-
 10. Create a database -- ```bash CREATE DATABASE database1;``` (Give the same name of database created in RDS)
-
 11. Use that database -- ```bash USE database1;```
-
 12. Create a table users
-
 ```sql
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -432,7 +420,6 @@ CREATE TABLE users (
     password VARCHAR(255) NOT NULL
 );
 ```
-
 13. Open the login, signup webpage in the browser and give some credintials in signup. Then signup successfull will appear.
 14. Go to the SQl prompt and give the command -- ```bash SELECT * FROM users;```
 15. The signup credintials will appear in the form of table.
@@ -719,3 +706,4 @@ sudo ./aws/install
 aws --version
 ```
 In the root account Create access key and configure with aws cli using command (```bash aws configure```)
+
