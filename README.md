@@ -706,6 +706,139 @@ aws --version
 ```
 In the root account Create access key and configure with aws cli using command (```bash aws configure```)
 
+---
 
+# Kubernetes(K8s):
+- Large applications have many functional modules such as login, product listing, search, orders, payments, and notifications.
+- Deploying all modules together in one container creates a very large image, increasing storage and operational costs.
+- A monolithic container must be scaled entirely even if only one feature (for example, search) experiences high traffic.
+- Any small code change or bug fix requires redeploying the entire application, increasing risk and downtime.
+- In the microservices approach, each module is separated into an independent service.
+- Each microservice runs in its own lightweight container with only the required code and dependencies.
+- Smaller container images reduce storage usage and speed up build and deployment processes.
+- Services can be scaled independently based on traffic, improving performance and reducing cost.
+- Failures in one microservice do not affect the entire application, improving reliability.
+- Kubernetes is commonly used to manage these microservices by handling deployment, scaling, load balancing, and self-healing automatically.
+
+This architecture is widely used in modern large-scale applications because it provides better scalability, cost efficiency, 
+reliability, and development speed compared to deploying the entire application in a single container.
+
+1.	It is a open source container archestration tool.
+2.	It is developed by google.
+3.	Helps to manage containerized application in different deployment environments.
+4.	Load-balancing, auto scaling, replication --> 3 things managed by kubernetes
+5.	The features of K8s is high availability, scalability, disaster recovery.
+
+## Pod:
+1. Pod is the smallest unit of K8s
+2. Abstraction over container.
+3. Usually 1 application per pod.
+4. Each pod gets its own IP address.
+5. New IP address on re-creation
+
+K8s uses two types of services
+### 1.	Internal Service: 
+An Internal Service is used when an application or microservice should be accessible only inside the Kubernetes 
+cluster. By default, Kubernetes creates a ClusterIP service, which is why internal services are often called ClusterIP services.
+
+### Key Characteristics:
+- Accessible only within the cluster
+- Cannot be accessed from the internet
+- Used for inter-service communication
+- Provides a stable IP and DNS name
+- Load-balances traffic between Pods
+
+### 2. External Service: 
+An External Service is used when an application needs to be accessed from outside the Kubernetes cluster, 
+such as by users over the internet.
+External services expose applications to:
+- Browsers
+- Mobile apps
+- External systems
+
+### - etcd --> A major service in master node. --> Scheduler
+
+--
+
+## Set-Up of K8s:
+1.	Launch two ec2 instances manster node and worker node.
+2.	Connect the instances to mobaXterm.
+3.	Add the port numbers -- 8080, 6443 to both the instances.
+4.	Next run the below commands.
+
+Common steps on both k8s Master and Worker nodes: 
+```bash
+$ sudo su 
+# apt update -y 
+# swapo -a 
+# sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab 
+# tee /etc/modules-load.d/containerd.conf <<EOF 
+> overlay 
+> br_netfilter 
+> EOF 
+# modprobe overlay 
+# modprobe br_netfilter 
+# tee /etc/sysctl.d/kubernetes.conf <<EOF 
+> net.bridge.bridge-nf-call-ip6tables = 1 
+> net.bridge.bridge-nf-call-iptables = 1 
+> net.ipv4.ip_forward = 1 
+> EOF 
+# sysctl --system 
+# apt install -y curl gnupg2 software-properties-common apt-transport-https ca-certificates 
+# curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmour -o /etc/apt/trusted.gpg.d/docker.gpg 
+# add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" 
+# apt update 
+# apt install -y containerd.io 
+# containerd config default | sudo tee /etc/containerd/config.toml >/dev/null 2>&1 
+# sed -i 's/SystemdCgroup \= false/SystemdCgroup \= true/g' /etc/containerd/config.toml 
+# systemctl restart containerd 
+# systemctl enable containerd 
+# curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg 
+# echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.28/deb/ /" |
+sudo tee /etc/apt/sources.list.d/kubernetes.list
+# apt update 
+# apt install -y kubeadm=1.28.1-1.1 kubelet=1.28.1-1.1 kubectl=1.28.1-1.1 
+```
+
+- On Master Node only: 
+```bash
+# kubeadm init 
+# mkdir -p $HOME/.kube 
+# cp -i /etc/kubernetes/admin.conf $HOME/.kube/config 
+# chown $(id -u):$(id -g) $HOME/.kube/config 
+# kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml 
+```
+
+- On each worker node (on worker nodes only): 
+```bash
+# kubeadm join masternodeipaddress:6443 --token token --discovery-token-ca-cert-hash 
+sha256:hash 
+(Note: In above command, replace the masternodeipaddress with the ip address of master 
+node, replace token with generated token, replace hash with generated hash)  
+The above command can be obtained after running all the master node commands we'll get the token and hash.
+```
+
+The below commands should be again ran in master node
+```bash
+# kubectl get nodes 
+# kubectl create deployment my-app --image=httpd  --> Creates a pod with two replication in master node instance
+# kubectl get deployment  --> Shows that my-app is deployed
+# kubectl get pods --> Shows the pods created
+# kubectl get replicaset --> Shows the replicasets created
+# kubectl get services
+
+kubectl create deployment deploymentname —image=imagename
+kubectl describe deployment deploymentname  --> Tells about the deployed images
+kubectl get deployment -o wide  --> Tells in which worker node it is deployed
+kubectl get pods
+kubectl get pods -o wide
+kubectl edit deployment deploymentname
+kubectl describe pod podname
+kubectl get all
+kubectl get all -o wide
+kubectl exec -it <podname> /bin/bash or kubectl exec -it <podname> --/bin/bash  --> To go into the containder
+kubectl logs podname  --> Shows the stages of the pods
+kubectl delete deployment deploname  --> Deletes the deployment completely along with pods, replicasets
+```
 
 
