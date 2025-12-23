@@ -593,13 +593,14 @@ Deploying the website in the above process is time taking. So below is another p
 2. Apdate and install the apache2
 3. Create Dockerfile -- vim Dockerfile
    In the vim file
+   ```bash
    FROM ubuntu:22.04                   --> Installs the ubunutu OS
    RUN apt-get update -y               --> Update the ubuntu
    RUN apt-get install apache2 -y      --> Install and run the apache2
    COPY . /var/www/html        	       --> . means Copy from current location
    EXPOSE 80		    -->
    CMD ["apachectl", "-D", "FOREGROUND"]
-
+   ```
 #### Q. Can I use systemctl instead of CMD?
 No because system-d service is not present in the ubuntu as it is a light weight service
 
@@ -628,14 +629,14 @@ CMD["nginx", "-g", "daemon off;"]
 ---
 
 ### Demo Project:
-node app runs in Virtual Machine
-mongodb runs in container
-node-app and mongodb are connected.
-Application in virtual machine and database in container.
+- node app runs in Virtual Machine
+- mongodb runs in container
+- node-app and mongodb are connected.
+- Application in virtual machine and database in container.
 
 environment variables of mongo image:
-⦁ MONGO_INITDB_ROOT_USERNAME: root
-⦁ MONGO_INITDB_ROOT_PASSWORD: example
+- MONGO_INITDB_ROOT_USERNAME: root
+- MONGO_INITDB_ROOT_PASSWORD: example
 
 1. Launch an instance.
 2. Apdate the VM and Install the docker
@@ -645,21 +646,21 @@ environment variables of mongo image:
 6. mongo-net network is created  --> ```bash docker network create mongo-net```
 7. ```bash docker run -d --name mongodb --network mongo-net -p 27017:27017 -e MONGO_INITDB_ROOT_USERNAME=root -e MONGO_INITDB_ROOT_PASSWORD=example mongo:latest```
    The above command can be split to understand more better
-   --name mongodb
-   --network mongo-network
-   -p 27017:27017
-   -e MONGO_INITDB_ROOT_USERNAME: root
-   -e MONGO_INITDB_ROOT_PASSWORD: example
-   mongo:latest\
+   - --name mongodb
+   - --network mongo-network
+   - -p 27017:27017
+   - -e MONGO_INITDB_ROOT_USERNAME: root
+   - -e MONGO_INITDB_ROOT_PASSWORD: example
+   - mongo:latest\
 
 8. Enable the port number of mongodb(27017) in security groups of instance.
 9. ```bash docker run -d --name mongo-express --network mongo-net -p8081:8081 -e ME_CONFIG_MONGODB_ADMINUSERNAME=root -e ME_CONFIG_MONGODB_ADMINPASSWORD=example -e ME_CONFIG_MONGODB_SERVER=mongodb -e ME_CONFIG_MONGODB_PORT=27017 -e ME_CONFIG_BASICAUTH_USERNAME=admin -e ME_CONFIG_BASICAUTH_PASSWORD=admin123 mongo-express:latest```
-   ⦁	ME_CONFIG_MONGODB_ADMINUSERNAME  &&  ME_CONFIG_MONGODB_ADMINPASSWORD --> These two are to connect to mongodb
-   ⦁	ME_CONFIG_BASICAUTH_USERNAME  &&  ME_CONFIG_BASICAUTH_PASSWORD  --> These two are for mongo-express UI
-   ⦁	ME_CONFIG_MONGODB_SERVER:mongodb  --> Mentions for which server we are connecting
-   ⦁	ME_CONFIG_MONGODB_PORT:27017  --> Port number of the server we are connecting
-   ⦁	8081 --> port number of mongo-express
-   ⦁	27017 --> port number of mongo
+   - ME_CONFIG_MONGODB_ADMINUSERNAME  &&  ME_CONFIG_MONGODB_ADMINPASSWORD --> These two are to connect to mongodb
+   - ME_CONFIG_BASICAUTH_USERNAME  &&  ME_CONFIG_BASICAUTH_PASSWORD  --> These two are for mongo-express UI
+   - ME_CONFIG_MONGODB_SERVER:mongodb  --> Mentions for which server we are connecting
+   - ME_CONFIG_MONGODB_PORT:27017  --> Port number of the server we are connecting
+   - 8081 --> port number of mongo-express
+   - 27017 --> port number of mongo
 
 10. Enable the port number mongo-express(8081) in security groups
 11. Give the ip address of the instance with port number 8081 and open(http:18.207.195.188:8081). A mongodb database page will appear.
@@ -682,7 +683,7 @@ node-app --> public directory -> index.html
          --> server.js
 Run the below command
 ```bash node server.js``` --> Runs the server.js in 3000 port number
-Give the ip address along with port number 3000 (http:18.207.195.188:3000). Index.html file will be opened. Save to mongoDB.
+- Give the ip address along with port number 3000 (http:18.207.195.188:3000). Index.html file will be opened. Save to mongoDB.
 Open the mongodb database page. You can see the database with name user-account. Open it and will be able to see the details.
 
 Now commit the mongodb into docker hub and AWS ECR
@@ -704,5 +705,6 @@ sudo ./aws/install
 aws --version
 ```
 In the root account Create access key and configure with aws cli using command (```bash aws configure```)
+
 
 
