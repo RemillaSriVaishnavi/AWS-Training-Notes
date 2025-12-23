@@ -693,8 +693,8 @@ Commit mongodb -> tag -> push to the docker hub
 ---
 
 ### Elastic Container Registry(ECR)
-⦁	Create ECR and give the name and create(thub-app)
-⦁	Select the name after created and select push commands
+- Create ECR and give the name and create(thub-app)
+- Select the name after created and select push commands
 Install AWS CLI in mobaXterm to push the container into the ECR. Below are the commands to install AWS CLI
 ```bash
 sudo apt update
@@ -705,6 +705,7 @@ sudo ./aws/install
 aws --version
 ```
 In the root account Create access key and configure with aws cli using command (```bash aws configure```)
+
 
 
 
