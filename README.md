@@ -758,8 +758,6 @@ External services expose applications to:
 
 ### - etcd --> A major service in master node. --> Scheduler
 
---
-
 ## Set-Up of K8s:
 1.	Launch two ec2 instances manster node and worker node.
 2.	Connect the instances to mobaXterm.
@@ -826,19 +824,19 @@ The below commands should be again ran in master node
 # kubectl get pods --> Shows the pods created
 # kubectl get replicaset --> Shows the replicasets created
 # kubectl get services
-
-kubectl create deployment deploymentname —image=imagename
-kubectl describe deployment deploymentname  --> Tells about the deployed images
-kubectl get deployment -o wide  --> Tells in which worker node it is deployed
-kubectl get pods
-kubectl get pods -o wide
-kubectl edit deployment deploymentname
-kubectl describe pod podname
-kubectl get all
-kubectl get all -o wide
-kubectl exec -it <podname> /bin/bash or kubectl exec -it <podname> --/bin/bash  --> To go into the containder
-kubectl logs podname  --> Shows the stages of the pods
-kubectl delete deployment deploname  --> Deletes the deployment completely along with pods, replicasets
+# kubectl create deployment deploymentname —image=imagename
+# kubectl describe deployment deploymentname  --> Tells about the deployed images
+# kubectl get deployment -o wide  --> Tells in which worker node it is deployed
+# kubectl get pods
+# kubectl get pods -o wide
+# kubectl edit deployment deploymentname
+# kubectl describe pod podname
+# kubectl get all
+# kubectl get all -o wide
+# kubectl exec -it <podname> /bin/bash or kubectl exec -it <podname> --/bin/bash  --> To go into the containder
+# kubectl logs podname  --> Shows the stages of the pods
+# kubectl delete deployment deploname  --> Deletes the deployment completely along with pods, replicasets
 ```
+
 
 
