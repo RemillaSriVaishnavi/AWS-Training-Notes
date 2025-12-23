@@ -526,19 +526,17 @@ B, c+, c -- bad ratings
 
 # DevOps
 ## Devops Tools:
-⦁ Slack
-⦁ Jira
-⦁ STAND UP
-⦁ Microsoft Planner
+- Slack
+- Jira
+- STAND UP
+- Microsoft Planner
 
-Container:
-OS - Linux - Aipine
+Container: OS - Linux - Aipine
 Common Libraries
-Software --> http, redis, mysql, postgres, nginx
-⦁	Docker is a vendor which can be used to create, build, distribute, run, deploy, storage.
-⦁	Apart from docker cri-o, container-d, build-ah can also be used but in these vendors, container can only be runned and deployed.
+- Software --> http, redis, mysql, postgres, nginx
+- Docker is a vendor which can be used to create, build, distribute, run, deploy, storage.
+- Apart from docker cri-o, container-d, build-ah can also be used but in these vendors, container can only be runned and deployed.
 
----
 
 ### Installing Docker:
 
@@ -706,4 +704,5 @@ sudo ./aws/install
 aws --version
 ```
 In the root account Create access key and configure with aws cli using command (```bash aws configure```)
+
 
