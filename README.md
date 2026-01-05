@@ -836,7 +836,5 @@ The below commands should be again ran in master node
 # kubectl exec -it <podname> /bin/bash or kubectl exec -it <podname> --/bin/bash  --> To go into the containder
 # kubectl logs podname  --> Shows the stages of the pods
 # kubectl delete deployment deploname  --> Deletes the deployment completely along with pods, replicasets
+# kubectl expose deployment my-app --type=NodePort --port=80  --> The port number is pod port number
 ```
-
-
-
