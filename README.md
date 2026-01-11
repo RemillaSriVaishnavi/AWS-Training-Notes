@@ -838,3 +838,52 @@ The below commands should be again ran in master node
 # kubectl delete deployment deploname  --> Deletes the deployment completely along with pods, replicasets
 # kubectl expose deployment my-app --type=NodePort --port=80  --> The port number is pod port number
 ```
+- Here port number of ec2 instance is not required as the kubernetes automatically generated the port number to be used. Kubernetes uses
+port number above 30000 to 32700.
+curl <master-node-private-IP-address>:Above generated portnumber(curl 172.31.3.113:32496)
+- kubectl scale deployment my-app --replicaset
+
+### Creating the deployment using yaml files:
+#### Internal Service:
+1.	Create two yaml files httpd.yaml, httpd-service1.yaml using vim editor.
+2.	The httpd.yaml contains which deployment need to be created and httpd-service1 describes services used for httpd file
+3.	kubectl apply -f httpd.yaml --> Deployment will be created
+4.	kubectl apply -f httpd-service1.yaml --> httpd-service will be created
+5.	We can also apply httpd-service by giving the httpd-service code below the deployment code in vim editor. Then automatically the
+deployment and the service will be created
+6. kubectl describe service httpd-service --> This command describes about the httpd-service and endpoints will come.
+7. curl endpoint:80(curl 192.168.192.129:80) --> Gives the index.html file.
+8. kubectl delete -f httpd.yaml --> The depolyment will be entirely deleted
+
+#### External Service:
+After deleteing make changes in service file enable
+Add:
+- nodePort:30002 (In ports)
+- type: load balancer (In spec)
+
+Again run the below commands.
+```bash
+kubectl apply -f httpd-service.yaml
+kubectl get services
+curl nodeipaddress:30002
+```
+Give <PublicIp of worker-node>:30005 in web
+
+### Q. Why do we use service concept?
+It solves the problem of random ip address allocation by the replication.
+
+## NameSpaces:
+- It is used to organise the resourses.
+- NameSpace is a virtual node.
+- kubectl get namespaces  --> It shows the default namespaces present
+- For small projects and small deploymnets we can use default namespace
+- If there is a big project and more deployments, it is difficult to access from the default namespace. So customized namespace is created.
+- Customized namespace is suggested only when multiple tems are working on different projects and also there are big deployments.
+
+```bash
+kubectl create namespace my-namespace
+kubectl apply -f httpd.yaml -n my-namespace --> Now the httpd.yaml file goes into the my-namespace
+kubectl get deployment -n my-namespace 
+kubectl get pods -n my-namespace
+kubectl delete namespace my-namespace --> Deletes the entire tree present in the namespace.
+```
