@@ -895,6 +895,7 @@ kubectl delete namespace my-namespace --> Deletes the entire tree present in the
 - When we deploy the terraform, it first checks what was the current state and what the customer wants.  
 - If the existing state met the customer requirements then,it won’t do anything ,if not it updates according to the CR’s.  
 - Since it is a third party tool, we need to mention the credentials on which cloud provider we want to work with.  
-- It supports multiple cloud service providers. (AWS, AZURE,ALIBABA,GOOGLECLOUD etc..)  
-- We can refer to documentations on how to apply it according to our choosen cloud 
+- It supports multiple cloud service providers. (AWS, AZURE,ALIBABA,GOOGLECLOUD etc..).
+- We can refer to documentations on how to apply it according to our choosen cloud.
+
 
