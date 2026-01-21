@@ -999,9 +999,4 @@ terraform destroy -target resource_name.reference_variable --> It deletes the me
 terraform destroy  --> It destroys the completely all the resources and not recommended to use
 ```
 
---we use cloud formation for repetitive tasks and if it is any third party tool then it is terraform.
-
-```
-
-
-
+- We use cloud formation for repetitive tasks and if it is any third party tool then it is terraform.
