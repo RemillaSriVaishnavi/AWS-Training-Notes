@@ -176,17 +176,17 @@ This task is about securely managing access to AWS resources using IAM users, ro
    create Policy and give any name to the policy(S3AlicePolicy)
 5. Now the policy is attached to the user(The policy is customer inline type)
 
-⦁	User should have only inline policy and no other permissions
-⦁	Role should have only permissions and no other policies
+- User should have only inline policy and no other permissions
+- Role should have only permissions and no other policies
 
 6. Go to incognito window and login with the user
 7. When we login with the user we don't have access to the s3 service. So we need to switch the role
 8. Switch role
 9. After switching the role we get acces to the s3 bucket and we don't get access to the ec2 service because while creating a role we gave only s3 access permission.
 
-⦁	The Inline Policy attached to the user have strict permissions and the policy is applicable to the particular one user only.
-⦁	ARN - AWS Resourse Number
-⦁	STS - Security Token Service --> It gives temporary access and cross account access
+- The Inline Policy attached to the user have strict permissions and the policy is applicable to the particular one user only.
+- ARN - AWS Resourse Number
+- STS - Security Token Service --> It gives temporary access and cross account access
 
 ---
 
@@ -201,8 +201,8 @@ This task is about securely managing access to AWS resources using IAM users, ro
 6. I should paste the link in the incognito tab and switch role
 7. Now I will be able to access the Another account but I will be just able to see the services and and I acnnot edit or delete anything in that account.
 
-⦁	Root account cannot assume the role.
-⦁	Any other IAM user should switch the role.
+- Root account cannot assume the role.
+- Any other IAM user should switch the role.
 
 ---
 
@@ -216,22 +216,22 @@ Deploying a website into cloud using Elastic BeanStalk:
    This is an instance profile role. EC2 instances are automatically created by Elastic Beanstalk. This role ensures the EC2 instance has
    permissions to pull logs, send metrics, and perform AWS operations required by the application.
    These permissions are automatically selected
-   ⦁ AWSElasticBeanstalkWebTier
-   ⦁ AWSElasticBeanstalkWorkerTier
-   ⦁ AWSElasticBeanstalkMulticontainerDocker
+   - AWSElasticBeanstalkWebTier
+   - AWSElasticBeanstalkWorkerTier
+   - AWSElasticBeanstalkMulticontainerDocker
    
    ### (II) Role name(EBSservicerole)
    AWS service -- Elastic BeanStalk(Use case) -- Elastic Beanstalk - Environment
    This is the service role for Elastic Beanstalk. Elastic Beanstalk service itself (not the EC2 instance).
    These permissions are automatically selected
-   ⦁ AWSElasticBeanstalkEnhancedHealth
-   ⦁ AWSElasticBeanstalkManagedUpdatesCustomerRolePolicy
+   - AWSElasticBeanstalkEnhancedHealth
+   - AWSElasticBeanstalkManagedUpdatesCustomerRolePolicy
 
 2. Some website templates are downloaded previously. Select any template. Open that template. Select all the files and compress them and send to file with any name.
    Go to EBS
    Create application -- webserver environment -- application name(my-app) -- environment will be selected automatically -- Domain name -- Platform -- managed platform -- tomcat -- select latest version -- upload your code -- version label(version-1) -- Local file -- upload the file -- single instance -- Select the service role -- Select the instance profile role -- Key pair(recommended) -- VPC(default) -- Enable public IP -- Subnets(select 1) -- SSD -- size(12) -- Select default security group -- instance type(t2 small) remove other one -- Monitoring(Leave default settings) -- Create the EBS
 
-⦁	Tomcat is used when thw webpage deployed is HTML or CSS. If it contains java script or aany other select other options.
+- Tomcat is used when thw webpage deployed is HTML or CSS. If it contains java script or aany other select other options.
 
 After creation an instance and S3 bucket is automatically created.
 
@@ -260,7 +260,7 @@ def lambda_handler(event, context):
 
 Go to function created and go to code. Paste the code -- Test event -- Give any name for the event -- Deploy the event(The event is saved) -- Test the event -- The output is shown below -- The changes can be reflected in the ec2 instances
 Add trigger -- select Event-Bridge -- Create a new rule -- Give rule name -- rate
-⦁	Trigger is added and given a time and for that every time, the event is scheduled.
+- Trigger is added and given a time and for that every time, the event is scheduled.
 
 #### Create a lambda function to create a snapshot of EC2-volume
 1. Create an EC2 instance. A volume is automatically created and attached to the EC2 instance.
@@ -312,8 +312,8 @@ Load balancer -- application load balancer
 ### Vertical Scaling: 
 It means the capacity or storage of the EC2 instance is increased or decreased. Scale up and Scale down process is done manually.
 
-⦁	Scale up - Instance type is increased
-⦁	Scale down - Instance type is decreased
+- Scale up - Instance type is increased
+- Scale down - Instance type is decreased
 
 1. Launch an EC2 instance. Check whether default page is coming or not.
 2. Stop the instance.
@@ -327,20 +327,22 @@ It means the capacity or storage of the EC2 instance is increased or decreased. 
 EC2 instances are created based on number of users when needed automatically through the image. To launch another instance we will create an image of the present running instance. All the other instances are launched from the image created only.
 
 Stop the instance.
-Select instance -- Actions -- Image and Templates -- Create Image -- Give an image name -- Create Image
-An Image is created. Check in AMIs
-Now terminate the instance as it is no longer needed.
-Create auto scaling
-Name - Create launch template -- template name -- My AMIs(Select the image created) -- Instance type(Don't include) -- Key pair created -- security group(launch wizard don't select default) -- create launch template
-Launch template - selected the created one --- next -- instance type -- manually add instance types(t2.micro) -- network settings -- select default VPC -- Select atleast 2 availability zones -- next -- attach to new load balances
-desired capacity -- 2 instances -- min 2, max 3 -- scaling policy -- target scaling policy -- metric type -- cpu metrics -- change 50 to 20 -- warmup -- 100 -- additional settings default -- next -- create
+1. Select instance -- Actions -- Image and Templates -- Create Image -- Give an image name -- Create Image
+2. An Image is created. Check in AMIs
+3. Now terminate the instance as it is no longer needed.
+4. Create auto scaling
+5. Name - Create launch template -- template name -- My AMIs(Select the image created) -- Instance type(Don't include) -- Key pair created -- security group(launch wizard don't select default) -- create launch template
+6. Launch template - selected the created one --- next -- instance type -- manually add instance types(t2.micro) -- network settings -- select default VPC -- Select atleast 2 availability zones -- next -- attach to new load balances
+7. desired capacity -- 2 instances -- min 2, max 3 -- scaling policy -- target scaling policy -- metric type -- cpu metrics -- change 50 to 20 -- warmup -- 100 -- additional settings default -- next -- create
 
-⦁ If the CPU utilization is 100% then automatically another instance is created. To check this
+- If the CPU utilization is 100% then automatically another instance is created. To check this
 1. Go to mobaxterm and give the IP address of running instance and connect to it.
 2. Go to the root and give the following commands
+   ```bash
    apt-get install stress -y --> Stress is installed
    stress -c 2 --> Instance is created
    top --> To check the CPU utilization wheter it is 100% or not
+   ```
 3. Now we can see that an instance is created as the minimun desired capacity is exceeded
 
 ---
@@ -425,7 +427,7 @@ CREATE TABLE users (
 15. The signup credintials will appear in the form of table.
 16. When logged in, it shows login successful.
 
-⦁	While creating RDS in place of selecting MYSQL if we select MariaDB then download MariaDB server in mobaXterm. It is completely same as MySQL server only. In this way we can select any database.
+- While creating RDS in place of selecting MYSQL if we select MariaDB then download MariaDB server in mobaXterm. It is completely same as MySQL server only. In this way we can select any database.
 
 
 apt perge
@@ -441,27 +443,28 @@ End point regional
 
 ### ElastiCache: 
 Amazon ElastiCache is a web service that improves the performance of applications by allowing you to retrieve information from fast, managed, in-memory caches, instead of relying solely on slower disk-based databases.
-⦁	Redis --> Open source cache
-⦁	Shard means a small group
-⦁	Primary Endpoint(R/w) + Read Replica = Shard
-⦁	Multiple shard is called cluster.
+- Redis --> Open source cache
+- Shard means a small group
+- Primary Endpoint(R/w) + Read Replica = Shard
+- Multiple shard is called cluster.
 
 ### Creating ElastiCache:
-Get started
-Select redis OSS -- Design your own cache -- Cluster cache
-Cluster mode -- Disabled, Cluster info -- Give name
-Location -- AWS, Multi AZ -- Disable, Auto-failover -- Disable
-Cache settings:
+1. Get started
+2. Select redis OSS -- Design your own cache -- Cluster cache
+3. Cluster mode -- Disabled, Cluster info -- Give name
+4. Location -- AWS, Multi AZ -- Disable, Auto-failover -- Disable
+##### Cache settings: 
 Engine Version - 7.1, Port - 6379, Node type -- t2.micro, Replicas -- 0
-Connectivity:
+##### Connectivity: 
 Create new subnet group -- Give name, Select default vpc, select 1 subnet
-Advanced Settings: Don't change other settings
-Disable backup
-Create ElastiCache
+##### Advanced Settings: 
+- Don't change other settings
+- Disable backup
+- Create ElastiCache
 
-Now go the default securuty groups and add redis port number(6379) and also verify if SSH is added.
-Launch an Amazon Linux ec2 Instance -- In Network Settings Select default VPC, Select existing security group(default)
-Connect to the mobaXterm
+- Now go the default securuty groups and add redis port number(6379) and also verify if SSH is added.
+- Launch an Amazon Linux ec2 Instance -- In Network Settings Select default VPC, Select existing security group(default)
+- Connect to the mobaXterm
 Install the required packages:
 ```bash
 yum install gcc
@@ -495,7 +498,7 @@ The commands will slightly differ when doing in Ubuntu Server
 The set commands are same as in amazon linux.
 ```
 
-⦁ IANA - Internet Assigned Numbers Authority
+- IANA - Internet Assigned Numbers Authority
 
 ---
 
@@ -508,17 +511,17 @@ The set commands are same as in amazon linux.
 
 ---
 
-AWS Certificate Manager
-certbot
-python3-certbot-apache
-Letsecrypt - open source ssl
-certbot --apache -d vaishubuilding.tech -d [www.vaishubuilding.tech](http://www.vaishubuilding.tech)
+- AWS Certificate Manager
+- certbot
+- python3-certbot-apache
+- Letsecrypt - open source ssl
+- certbot --apache -d vaishubuilding.tech -d [www.vaishubuilding.tech](http://www.vaishubuilding.tech)
 
 
-ns lookup
-[https://ssllabs.com/ssltest/](https://ssllabs.com/ssltest/)
-a, a+, b+ -- good ratings
-B, c+, c -- bad ratings
+- ns lookup
+- [https://ssllabs.com/ssltest/](https://ssllabs.com/ssltest/)
+- a, a+, b+ -- good ratings
+- B, c+, c -- bad ratings
 
 ---
 
@@ -758,6 +761,7 @@ External services expose applications to:
 
 ### - etcd --> A major service in master node. --> Scheduler
 
+
 ## Set-Up of K8s:
 1.	Launch two ec2 instances manster node and worker node.
 2.	Connect the instances to mobaXterm.
@@ -824,7 +828,7 @@ The below commands should be again ran in master node
 # kubectl get pods --> Shows the pods created
 # kubectl get replicaset --> Shows the replicasets created
 # kubectl get services
-# kubectl create deployment deploymentname —image=imagename
+# kubectl create deployment deploymentname —image=imagename   (kubectl create deployment my-app --image=httpd)
 # kubectl describe deployment deploymentname  --> Tells about the deployed images
 # kubectl get deployment -o wide  --> Tells in which worker node it is deployed
 # kubectl get pods
@@ -838,10 +842,12 @@ The below commands should be again ran in master node
 # kubectl delete deployment deploname  --> Deletes the deployment completely along with pods, replicasets
 # kubectl expose deployment my-app --type=NodePort --port=80  --> The port number is pod port number
 ```
+
 - Here port number of ec2 instance is not required as the kubernetes automatically generated the port number to be used. Kubernetes uses
 port number above 30000 to 32700.
 curl <master-node-private-IP-address>:Above generated portnumber(curl 172.31.3.113:32496)
 - kubectl scale deployment my-app --replicaset
+
 
 ### Creating the deployment using yaml files:
 #### Internal Service:
@@ -872,6 +878,7 @@ Give <PublicIp of worker-node>:30005 in web
 ### Q. Why do we use service concept?
 It solves the problem of random ip address allocation by the replication.
 
+
 ## NameSpaces:
 - It is used to organise the resourses.
 - NameSpace is a virtual node.
@@ -888,6 +895,15 @@ kubectl get pods -n my-namespace
 kubectl delete namespace my-namespace --> Deletes the entire tree present in the namespace.
 ```
 
+
+
+
+
+
+
+
+
+
 # Terraform:
 - Open source  
 - It can be used with any cloud service provider.  
@@ -895,7 +911,97 @@ kubectl delete namespace my-namespace --> Deletes the entire tree present in the
 - When we deploy the terraform, it first checks what was the current state and what the customer wants.  
 - If the existing state met the customer requirements then,it won’t do anything ,if not it updates according to the CR’s.  
 - Since it is a third party tool, we need to mention the credentials on which cloud provider we want to work with.  
-- It supports multiple cloud service providers. (AWS, AZURE,ALIBABA,GOOGLECLOUD etc..).
-- We can refer to documentations on how to apply it according to our choosen cloud.
+- It supports multiple cloud service providers. (AWS, AZURE,ALIBABA,GOOGLECLOUD etc..)  
+- We can refer to documentations on how to apply it according to our choosen cloud  
+
+## Installation Process:
+- Extract  
+- Move it to any drive  
+- And open cmd from that directory and run the following command  
+```bash terraform –version ```  
+
+- Terraform files are saved as .tf format  
+- The language used here is Hashicorp Configuration Language(HCL).  
+
+Create a folder in the same directory where all the files extracted  
+- Open the folder in vscode  
+- Create an empty file with .tf extension  
+- Create access key in root account  
+- Before writing the code, go to terraform registry and check the documentation of the desired cloud and check the syntax on how to write the code.  
+
+```hcl
+provider "aws" {
+  region     = "us-east-1"
+  access_key = "xxxxxxxxxxxxxxxxxx"
+  secret_key = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+}
+```
+- Change all the credentials accordingly in the above one and paste it in the file created.
+- Run the cmd from the same directory and run the following commands
+
+```bash 
+dir
+terraform init
+```
+- It should successfully get installed.
+- Till here the cloud provide is connected.
+
+### Creating resources using terraform:
+#### Adding VPC:
+- Go to documentation and type vpc --> Go to resources --> aws-vpc --> Basic Usage:to create vpc without name --> second code:to create vpc with name tags --> Apply it in the file
+- when we run these commands ,first it will look into the file and then it decide what it is going to do.
+
+```bash
+terraform plan  --> It plans what it is going to do
+terraform apply --> Once you confirm the plan, apply it
+```
+- In the aws console, check whether the required resource is added or not.
+
+#### Code:
+```hcl
+resource "aws_vpc" "main" {
+  cidr_block = "10.0.0.0/16"
+}
+```
+Here, it will create the VPC with the mentioned CIDR block and we use “main” to refer to the VPC in the further steps. It is not the name of the VPC.
+
+- Now, try it with tag code.
+- The tag will add the name for the VPC.
+
+#### Adding subnets:
+- Go to aws-subnets in the documentation-copy the code-save and apply the code.
+```bash
+terraform apply -auto-approve --> If we don’t want to enter yes always after the plan is already approved
+```
+
+```hcl
+resource "aws_vpc" "main" {
+  cidr_block       = "10.0.0.0/16"
+  instance_tenancy = "default"
+
+  tags = {
+    Name = "Happy"
+  }
+}
+```
+- aws_vpc  --> It is a resource_name
+- main  --> It is a reference_variable
+- If you change the reference variable in the vpc then you need to change the vpc Id also.
+- We have to change the reference variables for any resource accordingly.
+
+#### Adding another subnet:
+- Check the cidr ranges while applying subnets.
+- Change the subnets reference variables ,because we will get problem while deleting them.
+- We can have the same name for reference variables of different resources but inside the same resource, we should have the different variables to refer the resources.
+
+```bash
+terraform destroy -target resource_name.reference_variable --> It deletes the mentioned resource name (Ex: terraform destroy -target aws_vpc.main)
+terraform destroy  --> It destroys the completely all the resources and not recommended to use
+```
+
+--we use cloud formation for repetitive tasks and if it is any third party tool then it is terraform.
+
+```
+
 
 
