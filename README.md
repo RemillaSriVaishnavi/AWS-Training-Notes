@@ -1000,3 +1000,40 @@ terraform destroy  --> It destroys the completely all the resources and not reco
 ```
 
 - We use cloud formation for repetitive tasks and if it is any third party tool then it is terraform.
+
+---
+
+# Ansible
+1. Ansible is mainly used for configuration related structure.
+2. It uses a ansible software. The software does support windows but works well for linux and mac.
+3. It is called as agent less tool.
+4. It by default uses python libraries.
+5. It is completely CLI based. No GUI for it.
+6. If we want to see graphically we can see in Redhat operating system calld ansible tower.
+7. yaml file with multiple tasks is called ansible playbook.
+- Puppet, Chef ane alternate tools for ansible which are complex tools and uses ruby language
+
+- Launch an EC2 instance(ansible-control node).
+- Another EC2 instance as target server.
+- If we want ansible to be installed in multiple servers we don't install ansible in each server. We just create one control node and install ansible in it and from that we install ansible into all the other target servers.
+
+Do this in control-node:
+1. Connect ansible-control node server to mobaXterm.
+2. Update it.
+3. Check if python is installed or not. Pyhton is actually by default installed.
+4. Install ansible
+```bash
+apt-get update
+python3 --version
+apt install -y ansible
+```
+5. Create vim key.pem file and paste the key in that file. It is default in ubuntu home directory. Then move to ssh directory.
+```bash 
+mv key.pem ~/.ssh/  --> Move key file to ssh directory from home directory 
+chmod 600 ~/.ssh/key.pem  --> Only give permission to owner.
+```
+6. The target server information is stored in inventory file which is created in control node.
+7. Create a vim file with name 'hosts'.
+8. Store the private ip address of target node in the hosts file in following way and save it.
+```bash private-ip> ansible_ssh_private_key_file=~/.ssh/key.pem ansible_user=ubuntu ```
+```bash ansible -i hosts all -m ping  --> Should ping ```
